@@ -1,0 +1,45 @@
+﻿@model IEnumerable<BrainTreePaymentGetwayExample.Models.Checkout>
+
+@{
+    ViewData["Title"] = "Transactions";
+}
+
+<h1>All Payments</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               User Information
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentMethodNonce)
+            </th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.User.FirstName @item.User.LastName
+                    <br />
+                    @item.User.Email
+                <br />
+                    @item.User.Phone
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentMethodNonce)
+                </td>
+             
+            </tr>
+        }
+    </tbody>
+</table>

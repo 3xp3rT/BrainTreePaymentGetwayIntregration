@@ -1,0 +1,72 @@
+﻿@model BrainTreePaymentGetwayExample.Models.Checkout
+
+@{
+    ViewData["Title"] = "Checkout Payment";
+}
+
+
+<div class="row">
+    <div class="col-md-6 offset-3">
+        <h4>Payment To - @Model.User.FirstName @Model.User.LastName</h4>
+        <hr />
+        <div class="bt-drop-in-wrapper">
+            <div id="bt-dropin"></div>
+        </div>
+        <form asp-action="Checkout">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="PaymentMethodNonce" hidden  />
+           
+    
+                <input asp-for="User.FirstName" class="form-control" hidden/>
+                
+                <input asp-for="User.LastName" class="form-control" hidden/>
+                
+                <input asp-for="User.Email" class="form-control" hidden/>
+                
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="submit" id="sumbit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://js.braintreegateway.com/web/dropin/1.24.0/js/dropin.min.js"></script>
+    <script>
+    var client_token = "@ViewBag.ClientToken";
+    var form = document.querySelector('#payment-form');
+
+    braintree.dropin.create({
+        authorization: client_token,
+        container: '#bt-dropin',
+        card: {
+           
+        }
+    }, function (createErr, instance) {
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            instance.requestPaymentMethod(function (err, payload) {
+                if (err) {
+                    console.log('Error', err);
+                    return;
+                }
+
+                // Add the nonce to the form and submit
+                document.getElementById('PaymentMethodNonce').value = payload.nonce;
+                form.submit();
+            });
+        });
+    });
+    </script>
+    
+}
