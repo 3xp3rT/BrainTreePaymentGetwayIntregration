@@ -22,7 +22,8 @@ namespace BrainTreePaymentGetwayExample.Services
             PrivateKey = System.Environment.GetEnvironmentVariable("BraintreePrivateKey");
 
             if (MerchantId == null || PublicKey == null || PrivateKey == null)
-            {
+            { 
+            //your credentials
                 Environment = "sandbox";
                 MerchantId = "9j4ynyf697k9685t";
                 PublicKey = "25sy94dv3rqgg355";
