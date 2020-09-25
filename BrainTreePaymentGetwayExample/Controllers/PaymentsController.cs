@@ -44,6 +44,7 @@ namespace BrainTreePaymentGetwayExample.Controllers
             }
             checkout.User = await _context.User
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             
             if (checkout.User == null)
             {
@@ -75,6 +76,7 @@ namespace BrainTreePaymentGetwayExample.Controllers
                 Result<Transaction> result = gateway.Transaction.Sale(request);
                 if (result.IsSuccess())
                 {
+                  
                     paymentStatus = "Succeded";
                     _context.Add(model);
                     await _context.SaveChangesAsync();
