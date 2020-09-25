@@ -15,7 +15,8 @@
         <form id="payment-form" asp-action="Checkout">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input asp-for="PaymentMethodNonce" hidden />
-           
+            <input asp-for="UserId" hidden />
+
 
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>

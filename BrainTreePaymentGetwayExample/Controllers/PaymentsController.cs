@@ -50,6 +50,7 @@ namespace BrainTreePaymentGetwayExample.Controllers
             {
                 return NotFound();
             }
+            checkout.UserId = checkout.User.Id;
             ViewBag.ClientToken = _paymentConfig.GetGateway().ClientToken.Generate();
             return View(checkout);
         }
